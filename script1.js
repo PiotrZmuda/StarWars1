@@ -408,7 +408,6 @@ nextButton.addEventListener("click", async () => {
 
 //logika prev
 prevButton.addEventListener("click", async () => {
-  startingIndex = 1;
   page--;
   startingIndex -= 10;
   refreshPage();
