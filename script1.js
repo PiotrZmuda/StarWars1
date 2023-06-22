@@ -85,14 +85,14 @@ const generateButton = async () => {
 
     navButton.addEventListener("click", async () => {
       currentCategory = names[i];
-      const fetchData = await getData(names[i], page);
-      //rendering
-      page = 1;
-      displayCurrentPage(page);
+      startingIndex = 1;
       refreshPage();
+      displayCurrentPage(page);
+      page = 1;
+      const fetchData = await getData(names[i], page);
 
       printChart(fetchData, names[i]);
-      detailsList()
+      detailsList();
     });
 
     buttons.appendChild(navButton);
@@ -391,8 +391,8 @@ const fillCategotyWithData = (val, index, category) => {
 };
 
 //info
-let pagination = document.createElement("p");
-pages.appendChild(pagination);
+// let pagination = document.createElement("p");
+// pages.appendChild(pagination);
 
 //logika next
 nextButton.addEventListener("click", async () => {
@@ -408,6 +408,7 @@ nextButton.addEventListener("click", async () => {
 
 //logika prev
 prevButton.addEventListener("click", async () => {
+  startingIndex = 1;
   page--;
   startingIndex -= 10;
   refreshPage();
@@ -488,3 +489,5 @@ const handleDeleteClick = async (event) => {
 const renderList = (data) => {
   document.getElementById("details_container").innerHTML = "";
 };
+
+//zmień kod by po kliknieciu w button w funkcji generateButton startingIndex resetował się i zaczynał od 1 bo aktualnie po zmianie kategori po wciśnieciu buttona startingIndex jest ten sam
