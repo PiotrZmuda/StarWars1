@@ -56,6 +56,18 @@ const getData = async (category, page) => {
   return results;
 };
 
+// wyłączenie przycisku next
+const disableNext = async (category, page) => {
+  const response = await fetch(`${SWAPI_URL}/${category}/?page=${page}`);
+  const data = await response.json();
+  const next = data.next;
+  if (next === null) {
+    nextButton.disabled = true;
+  }
+  console.log("next", next);
+  return next;
+};
+
 //fetch detali
 const getCategory = async (category, page, index) => {
   const response = await fetch(
@@ -90,6 +102,7 @@ const generateButton = async () => {
       const fetchData = await getData(names[i], page);
 
       printChart(fetchData, names[i]);
+      await disableNext(names[i], page);
       detailsList();
     });
 
@@ -402,6 +415,7 @@ nextButton.addEventListener("click", async () => {
   hederAdded = false; // =
   printChart(fetchData, currentCategory);
   displayCurrentPage(page); // Aktualizacja wyświetlanej aktualnej strony
+  await disableNext(currentCategory, page);
 });
 
 //logika prev
@@ -487,4 +501,4 @@ const renderList = (data) => {
   document.getElementById("details_container").innerHTML = "";
 };
 
-//zmień kod by po kliknieciu w button w funkcji generateButton startingIndex resetował się i zaczynał od 1 bo aktualnie po zmianie kategori po wciśnieciu buttona startingIndex jest ten sam
+//popraw funkcję  disableNext by wyłączyła przycisk next gdy data.next == null
