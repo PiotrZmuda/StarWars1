@@ -5,7 +5,7 @@ const SWAPI_URL = "https://swapi.dev/api/";
 let page = 1;
 let startingIndex = 1;
 let hederAdded = false;
-let currentCategory = "";
+let currentCategory = null;
 
 //paginacja
 const pages = document.getElementById("pages");
@@ -25,7 +25,7 @@ nextButton.append(nextText);
 pages.appendChild(nextButton);
 
 const refreshPage = () => {
-  if (currentCategory === "") {
+  if (currentCategory === null) {
     prevButton.disabled = true;
     nextButton.disabled = true;
   } else {
@@ -43,7 +43,6 @@ refreshPage();
 const getButtons = async () => {
   const response = await fetch(SWAPI_URL);
   const data = await response.json();
-  console.log("getButtons data", data);
   return data;
 };
 
@@ -64,7 +63,6 @@ const getCategory = async (category, page, index) => {
   );
   const data = await response.json();
   const results = data.results;
-  console.log("fetch kategori", results);
   return results;
 };
 
@@ -87,8 +85,8 @@ const generateButton = async () => {
       currentCategory = names[i];
       startingIndex = 1;
       refreshPage();
-      displayCurrentPage(page);
       page = 1;
+      displayCurrentPage(page);
       const fetchData = await getData(names[i], page);
 
       printChart(fetchData, names[i]);
