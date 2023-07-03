@@ -214,9 +214,7 @@ class Films {
 
 class Species {
   constructor(
-    { name, average_lifespan, skin_colors, language, created },
-    index
-  ) {
+    { name, average_lifespan, skin_colors, language, created },index) {
     this.index = index;
     this.name = name;
     this.average_lifespan = average_lifespan;
@@ -271,9 +269,7 @@ class Vehicles {
 
 class Starships {
   constructor(
-    { name, length, max_atmosphering_speed, passengers, created },
-    index
-  ) {
+    { name, length, max_atmosphering_speed, passengers, created },index) {
     this.index = index;
     this.name = name;
     this.length = length;
@@ -450,55 +446,79 @@ function detailsList() {
 }
 
 //wyświetlanie detali
+
 const handleDetailsClick = async (event) => {
   const target = event.target;
   if (target.classList.contains("details")) {
-    const index = target.classList[2].slice(5); // // Wyodrębnij indeks z klasy przycisku
+    const index = target.classList[2].slice(5); // Wyodrębnij indeks z klasy przycisku
     const fetchData = await getData(currentCategory, page); // Pobierz dane dla bieżącej kategorii i strony
-    const selectedItem = fetchData[index - 1]; // Pobierz wybrany element z tablicy dany
+
+    const selectedItem = fetchData[index -1  ]; // Pobierz wybrany element z tablicy danych
 
     // Usuń wszelkie istniejące szczegóły
     const detailsContainer = document.getElementById("details_container");
     detailsContainer.innerHTML = "";
 
-    // Utwórz element <ul>, aby wyświetlić szczegóły
-    const detailsList = document.createElement("ul");
+    // Utwórz element <table>, aby wyświetlić szczegóły
+    const detailsTable = document.createElement("table");
 
     // Iteruj po właściwościach wybranego elementu
     for (const key in selectedItem) {
       if (selectedItem.hasOwnProperty(key)) {
         const value = selectedItem[key];
 
-        // Utwórz element <li> dla każdej właściwości i jej wartości
-        const listItem = document.createElement("li");
-        listItem.textContent = `${key}: ${value}`;
+        // Utwórz wiersz <tr> dla każdej właściwości
+        const row = document.createElement("tr");
 
-        // Dołącz element <li> do elementu <ul>
-        detailsList.appendChild(listItem);
+        // Utwórz komórkę <td> dla klucza
+        const keyCell = document.createElement("td");
+        keyCell.textContent = key;
+        row.appendChild(keyCell);
+
+        // Utwórz komórkę <td> dla wartości
+        const valueCell = document.createElement("td");
+        valueCell.textContent = value;
+        row.appendChild(valueCell);
+
+        // Dołącz wiersz <tr> do tabeli <table>
+        detailsTable.appendChild(row);
       }
     }
 
-    // Dołącz element <ul> do kontenera szczegółów
-    detailsContainer.appendChild(detailsList);
+    // Dołącz tabelę <table> do kontenera szczegółów
+    detailsContainer.appendChild(detailsTable);
+
+    // Utwórz przycisk "Cancel" i dodaj obsługę zdarzenia kliknięcia
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+    cancelButton.addEventListener("click", () => {
+      detailsContainer.innerHTML = ""; // Wyczyść zawartość kontenera szczegółów po kliknięciu przycisku "Cancel"
+    });
+
+    // Dołącz przycisk "Cancel" do kontenera szczegółów
+    detailsContainer.appendChild(cancelButton);
   }
 };
 
+
+
 //kasowanie detali
-const handleDeleteClick = async (event) => {
+
+const handleDeleteClick = (event) => {
   const target = event.target;
   if (target.classList.contains("delete")) {
     const index = target.classList[2].slice(5); // Wyodrębnij indeks z klasy przycisku
-    const fetchData = await getData(currentCategory, page); // Pobierz dane dla bieżącej kategorii i strony
-
-    // Usuń wybrany element z tablicy danych
-    const updatedData = fetchData.filter((item, idx) => idx !== index - 1);
-
-    // Zaktualizuj wyświetlaną listę, wywołując funkcję w celu renderowania zaktualizowanych danych
-    renderList(updatedData);
+    const row = document.getElementById(`rowPerson${index}`); // Znajdź wiersz o odpowiednim ID
+    if (row) {
+      const confirmed = confirm("Are you sure?"); // Wyświetl potwierdzenie
+      if (confirmed) {
+        row.remove(); // Usuń wiersz z tabeli
+      }
+    }
   }
 };
+
 const renderList = (data) => {
   document.getElementById("details_container").innerHTML = "";
 };
 
-//popraw funkcję  disableNext by wyłączyła przycisk next gdy data.next == null
