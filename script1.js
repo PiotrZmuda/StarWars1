@@ -140,7 +140,6 @@ class Person {
     this.height = height;
     this.created = created;
   }
-  //metoda tzn funkcja która jest w obiekcie
   toHTML() {
     return `<tr id="rowPerson${this.index}">
     <td>${this.index}</td>
@@ -167,7 +166,6 @@ class Planets {
     this.diameter = diameter;
     this.created = created;
   }
-  //metoda tzn funkcja która jest w obiekcie
   toHTML() {
     return `<tr id="rowPerson${this.index}">
     <td>${this.index}</td>
@@ -194,7 +192,6 @@ class Films {
     this.release_date = release_date;
     this.created = created;
   }
-  //metoda tzn funkcja która jest w obiekcie
   toHTML() {
     return `<tr id="rowPerson${this.index}">
     <td>${this.index}</td>
@@ -222,7 +219,6 @@ class Species {
     this.language = language;
     this.created = created;
   }
-  //metoda tzn funkcja która jest w obiekcie
   toHTML() {
     return `<tr id="rowPerson${this.index}">
     <td>${this.index}</td>
@@ -249,7 +245,6 @@ class Vehicles {
     this.crew = crew;
     this.created = created;
   }
-  //metoda tzn funkcja która jest w obiekcie
   toHTML() {
     return `<tr id="rowPerson${this.index}">
     <td>${this.index}</td>
@@ -277,7 +272,6 @@ class Starships {
     this.passengers = passengers;
     this.created = created;
   }
-  //metoda tzn funkcja która jest w obiekcie
   toHTML() {
     return `<tr id="rowPerson${this.index}">
     <td>${this.index}</td>
@@ -408,7 +402,7 @@ nextButton.addEventListener("click", async () => {
   refreshPage();
   console.log("page", page);
   const fetchData = await getData(currentCategory, page);
-  hederAdded = false; // =
+  hederAdded = false; 
   printChart(fetchData, currentCategory);
   displayCurrentPage(page); // Aktualizacja wyświetlanej aktualnej strony
   await disableNext(currentCategory, page);
@@ -420,7 +414,7 @@ prevButton.addEventListener("click", async () => {
   startingIndex -= 10;
   refreshPage();
   const fetchData = await getData(currentCategory, page);
-  hederAdded = false; // =
+  hederAdded = false; 
   printChart(fetchData, currentCategory);
   displayCurrentPage(page); // Aktualizacja wyświetlanej aktualnej strony
 });
@@ -429,13 +423,6 @@ const displayCurrentPage = (page) => {
   const currentPageElement = document.getElementById("current_page");
   currentPageElement.textContent = `Page: ${page}`;
 };
-
-// Dodaj nasłuchiwanie na kliknięcie przycisków "Details" i "Delete" w tabeli
-// const chartContainer = document.getElementById("chart_container");
-// chartContainer.addEventListener("click", (event) => {
-//   handleDetailsClick(event);
-//   handleDeleteClick(event);
-// });
 
 function detailsList() {
   const chartContainer = document.getElementById("chart_container");
@@ -451,11 +438,10 @@ const handleDetailsClick = async (event) => {
   const target = event.target;
   if (target.classList.contains("details")) {
     const index = target.classList[2].slice(5); // Wyodrębnij indeks z klasy przycisku
-    const fetchData = await getData(currentCategory, page); // Pobierz dane dla bieżącej kategorii i strony
+    const fetchData = await getData(currentCategory, page);
 
-    const selectedItem = fetchData[index -1  ]; // Pobierz wybrany element z tablicy danych
+    const selectedItem = fetchData[index -1  ];
 
-    // Usuń wszelkie istniejące szczegóły
     const detailsContainer = document.getElementById("details_container");
     detailsContainer.innerHTML = "";
 
@@ -492,15 +478,13 @@ const handleDetailsClick = async (event) => {
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
     cancelButton.addEventListener("click", () => {
-      detailsContainer.innerHTML = ""; // Wyczyść zawartość kontenera szczegółów po kliknięciu przycisku "Cancel"
+      detailsContainer.innerHTML = "";
     });
 
     // Dołącz przycisk "Cancel" do kontenera szczegółów
     detailsContainer.appendChild(cancelButton);
   }
 };
-
-
 
 //kasowanie detali
 
