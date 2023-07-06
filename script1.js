@@ -10,8 +10,6 @@ let currentCategory = null;
 //paginacja
 const pages = document.getElementById("pages");
 
-//aktualna strona
-
 //prev
 let prevButton = document.createElement("button");
 let prevText = document.createTextNode("Prev");
@@ -404,7 +402,7 @@ nextButton.addEventListener("click", async () => {
   const fetchData = await getData(currentCategory, page);
   hederAdded = false; 
   printChart(fetchData, currentCategory);
-  displayCurrentPage(page); // Aktualizacja wyświetlanej aktualnej strony
+  displayCurrentPage(page); 
   await disableNext(currentCategory, page);
 });
 
@@ -416,7 +414,7 @@ prevButton.addEventListener("click", async () => {
   const fetchData = await getData(currentCategory, page);
   hederAdded = false; 
   printChart(fetchData, currentCategory);
-  displayCurrentPage(page); // Aktualizacja wyświetlanej aktualnej strony
+  displayCurrentPage(page); 
 });
 
 const displayCurrentPage = (page) => {
@@ -474,14 +472,13 @@ const handleDetailsClick = async (event) => {
     // Dołącz tabelę <table> do kontenera szczegółów
     detailsContainer.appendChild(detailsTable);
 
-    // Utwórz przycisk "Cancel" i dodaj obsługę zdarzenia kliknięcia
+    // przycisk "Cancel" i obsługa zdarzenia kliknięcia
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
     cancelButton.addEventListener("click", () => {
       detailsContainer.innerHTML = "";
     });
 
-    // Dołącz przycisk "Cancel" do kontenera szczegółów
     detailsContainer.appendChild(cancelButton);
   }
 };
@@ -491,10 +488,10 @@ const handleDetailsClick = async (event) => {
 const handleDeleteClick = (event) => {
   const target = event.target;
   if (target.classList.contains("delete")) {
-    const index = target.classList[2].slice(5); // Wyodrębnij indeks z klasy przycisku
-    const row = document.getElementById(`rowPerson${index}`); // Znajdź wiersz o odpowiednim ID
+    const index = target.classList[2].slice(5); 
+    const row = document.getElementById(`rowPerson${index}`);
     if (row) {
-      const confirmed = confirm("Are you sure?"); // Wyświetl potwierdzenie
+      const confirmed = confirm("Are you sure?");
       if (confirmed) {
         row.remove(); // Usuń wiersz z tabeli
       }
