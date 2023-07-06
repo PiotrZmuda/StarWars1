@@ -209,7 +209,9 @@ class Films {
 
 class Species {
   constructor(
-    { name, average_lifespan, skin_colors, language, created },index) {
+    { name, average_lifespan, skin_colors, language, created },
+    index
+  ) {
     this.index = index;
     this.name = name;
     this.average_lifespan = average_lifespan;
@@ -262,7 +264,9 @@ class Vehicles {
 
 class Starships {
   constructor(
-    { name, length, max_atmosphering_speed, passengers, created },index) {
+    { name, length, max_atmosphering_speed, passengers, created },
+    index
+  ) {
     this.index = index;
     this.name = name;
     this.length = length;
@@ -400,9 +404,9 @@ nextButton.addEventListener("click", async () => {
   refreshPage();
   console.log("page", page);
   const fetchData = await getData(currentCategory, page);
-  hederAdded = false; 
+  hederAdded = false;
   printChart(fetchData, currentCategory);
-  displayCurrentPage(page); 
+  displayCurrentPage(page);
   await disableNext(currentCategory, page);
 });
 
@@ -412,15 +416,64 @@ prevButton.addEventListener("click", async () => {
   startingIndex -= 10;
   refreshPage();
   const fetchData = await getData(currentCategory, page);
-  hederAdded = false; 
+  hederAdded = false;
   printChart(fetchData, currentCategory);
-  displayCurrentPage(page); 
+  displayCurrentPage(page);
 });
 
-const displayCurrentPage = (page) => {
-  const currentPageElement = document.getElementById("current_page");
-  currentPageElement.textContent = `Page: ${page}`;
+const displayCurrentPage = async (page) => {
+  // Pobierz całkowitą liczbę stron dla bieżącej kategorii
+  const response = await fetch(`${SWAPI_URL}/${currentCategory}`);
+  const data = await response.json();
+  const totalPages = Math.ceil(data.count / 10); // Zakładając 10 elementów na stronę
+
+  displayCurrentPageNumber(page);
+  displayTotalPages(totalPages);
+  createPageSelect(totalPages, page);
 };
+
+// Wyświetl bieżącą stronę
+
+const displayCurrentPageNumber = (page) => {
+  const currentPageElement = document.getElementById("current_page");
+  currentPageElement.textContent = `Strona: ${page}`;
+};
+
+// Wyświetl całkowitą liczbę stron
+
+const displayTotalPages = (totalPages) => {
+  const totalPagesElement = document.getElementById("total-pages");
+  totalPagesElement.textContent = `Liczba stron: ${totalPages}`;
+};
+
+// Tworzenie elementu <select> i obsługa zmiany strony
+const createPageSelect = (totalPages, currentPage) => {
+
+  const selectElement = document.createElement("select");
+
+  // Dodawanie opcji dla każdej strony
+  for (let i = 1; i <= totalPages; i++) {
+    const optionElement = document.createElement("option");
+    optionElement.value = i;
+    optionElement.textContent = `Strona ${i}`;
+    selectElement.appendChild(optionElement);
+  }
+
+  // Ustawienie wybranej strony
+  selectElement.value = currentPage;
+
+  // Obsługa zmiany wybranej strony
+  selectElement.addEventListener("change", (event) => {
+    const selectedPage = parseInt(event.target.value);
+    displayCurrentPage(selectedPage);
+  });
+
+  // Dodawanie elementu <select> do odpowiedniego kontenera
+  const selectContainer = document.getElementById("select");
+  selectContainer.innerHTML = "";
+  selectContainer.appendChild(selectElement);
+};
+
 
 function detailsList() {
   const chartContainer = document.getElementById("chart_container");
@@ -438,7 +491,7 @@ const handleDetailsClick = async (event) => {
     const index = target.classList[2].slice(5); // Wyodrębnij indeks z klasy przycisku
     const fetchData = await getData(currentCategory, page);
 
-    const selectedItem = fetchData[index -1  ];
+    const selectedItem = fetchData[index - 1];
 
     const detailsContainer = document.getElementById("details_container");
     detailsContainer.innerHTML = "";
@@ -488,7 +541,7 @@ const handleDetailsClick = async (event) => {
 const handleDeleteClick = (event) => {
   const target = event.target;
   if (target.classList.contains("delete")) {
-    const index = target.classList[2].slice(5); 
+    const index = target.classList[2].slice(5);
     const row = document.getElementById(`rowPerson${index}`);
     if (row) {
       const confirmed = confirm("Are you sure?");
@@ -502,4 +555,3 @@ const handleDeleteClick = (event) => {
 const renderList = (data) => {
   document.getElementById("details_container").innerHTML = "";
 };
-
