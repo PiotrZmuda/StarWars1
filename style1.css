@@ -1,9 +1,49 @@
+body {
+  margin: 0 auto;
+}
+button {
+  cursor: pointer;
+}
+.main-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100px;
+  background-image: url("photos/starWars\ background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-
-.main-buttons > button{
-    background: linear-gradient(to right, blue, red);
-    width: 100px;
-    height: 30px;
-    color: white;
+/* .buttons-container > button {
+  background: linear-gradient(to right, blue, red);
+  width: 200px;
+  height: 50px;
+  color: white;
+  margin: 5px 2px;
+}
+.butons-container > button:hover {
+    background-color: #333;
+    color: #fff;
+} */
+.buttons-container > button {
+    /* background-color: linear-gradient(to right, blue, red); */
+    background-image:linear-gradient(to right, rgba(0, 0, 255, 0.505), rgba(255, 0, 0, 0.829));
+ 
+    width: 200px;
+    height: 50px;
     margin: 5px 2px;
+  }
+  
+  .buttons-container > button:hover {
+    /* background-color: #333; */
+    background: linear-gradient(to right, rgb(60, 0, 255), red);
+    color: #fff;
+  }
+
+.chart{
+    margin-top: 20px;
+    width: 100%;
+}
+.chart > th{
+    background: aqua;
 }

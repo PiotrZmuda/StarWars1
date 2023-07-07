@@ -1,5 +1,6 @@
 const SWAPI_URL = "https://swapi.dev/api/";
 
+
 //stan aplikacji
 
 let page = 1;
@@ -430,6 +431,10 @@ const displayCurrentPage = async (page) => {
   displayCurrentPageNumber(page);
   displayTotalPages(totalPages);
   createPageSelect(totalPages, page);
+  const fetchData = await getData(currentCategory, page);
+
+  // Wyświetl dane w tablicy
+  printChart(fetchData, currentCategory);
 };
 
 // Wyświetl bieżącą stronę
@@ -462,16 +467,19 @@ const createPageSelect = (totalPages, currentPage) => {
   // Ustawienie wybranej strony
   selectElement.value = currentPage;
 
-  // Obsługa zmiany wybranej strony
+  //Obsługa zmiany wybranej strony
+
   selectElement.addEventListener("change", (event) => {
     const selectedPage = parseInt(event.target.value);
     displayCurrentPage(selectedPage);
+    page = selectedPage; // Aktualizacja zmiennej `page`
   });
 
   // Dodawanie elementu <select> do odpowiedniego kontenera
   const selectContainer = document.getElementById("select");
   selectContainer.innerHTML = "";
   selectContainer.appendChild(selectElement);
+
 };
 
 
@@ -555,3 +563,4 @@ const handleDeleteClick = (event) => {
 const renderList = (data) => {
   document.getElementById("details_container").innerHTML = "";
 };
+
