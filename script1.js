@@ -1,6 +1,5 @@
 const SWAPI_URL = "https://swapi.dev/api/";
 
-
 //stan aplikacji
 
 let page = 1;
@@ -80,7 +79,6 @@ const getCategory = async (category, page, index) => {
 //generowanie przycisków
 
 const generateButton = async () => {
-  //1
   const buttons = document.getElementById("buttons");
   const data = await getButtons();
   const names = Object.keys(data);
@@ -433,41 +431,33 @@ const displayCurrentPage = async (page) => {
   createPageSelect(totalPages, page);
   const fetchData = await getData(currentCategory, page);
 
-  // Wyświetl dane w tablicy
+  // dane w tablicy
   printChart(fetchData, currentCategory);
 };
 
-// Wyświetl bieżącą stronę
-
+// bieżąca strona
 const displayCurrentPageNumber = (page) => {
   const currentPageElement = document.getElementById("current_page");
   currentPageElement.textContent = `Page: ${page}`;
 };
 
-// Wyświetl całkowitą liczbę stron
-
+// całkowita liczba stron
 const displayTotalPages = (totalPages) => {
   const totalPagesElement = document.getElementById("total-pages");
   totalPagesElement.textContent = `All pages: ${totalPages}`;
 };
 
-// Tworzenie elementu <select> i obsługa zmiany strony
+// Tworzenie <select>
 const createPageSelect = (totalPages, currentPage) => {
-
   const selectElement = document.createElement("select");
 
-  // Dodawanie opcji dla każdej strony
   for (let i = 1; i <= totalPages; i++) {
     const optionElement = document.createElement("option");
     optionElement.value = i;
     optionElement.textContent = `Strona ${i}`;
     selectElement.appendChild(optionElement);
   }
-
-  // Ustawienie wybranej strony
   selectElement.value = currentPage;
-
-  //Obsługa zmiany wybranej strony
 
   selectElement.addEventListener("change", (event) => {
     const selectedPage = parseInt(event.target.value);
@@ -475,13 +465,10 @@ const createPageSelect = (totalPages, currentPage) => {
     page = selectedPage; // Aktualizacja zmiennej `page`
   });
 
-  // Dodawanie elementu <select> do odpowiedniego kontenera
   const selectContainer = document.getElementById("select");
   selectContainer.innerHTML = "";
   selectContainer.appendChild(selectElement);
-
 };
-
 
 function detailsList() {
   const chartContainer = document.getElementById("chart_container");
@@ -504,42 +491,36 @@ const handleDetailsClick = async (event) => {
     const detailsContainer = document.getElementById("details_container");
     detailsContainer.innerHTML = "";
 
-    // Utwórz element <table>, aby wyświetlić szczegóły
     const detailsTable = document.createElement("table");
 
-    // Iteruj po właściwościach wybranego elementu
+    // Iteracja po właściwościach wybranego elementu
     for (const key in selectedItem) {
       if (selectedItem.hasOwnProperty(key)) {
         const value = selectedItem[key];
 
-        // Utwórz wiersz <tr> dla każdej właściwości
         const row = document.createElement("tr");
 
-        // Utwórz komórkę <td> dla klucza
         const keyCell = document.createElement("td");
         keyCell.textContent = key;
         row.appendChild(keyCell);
 
-        // Utwórz komórkę <td> dla wartości
         const valueCell = document.createElement("td");
         valueCell.textContent = value;
         row.appendChild(valueCell);
 
-        // Dołącz wiersz <tr> do tabeli <table>
         detailsTable.appendChild(row);
       }
     }
 
-    // Dołącz tabelę <table> do kontenera szczegółów
     detailsContainer.appendChild(detailsTable);
 
-    // przycisk "Cancel" i obsługa zdarzenia kliknięcia
+    // przycisk "Cancel"
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
     cancelButton.addEventListener("click", () => {
       detailsContainer.innerHTML = "";
     });
-    cancelButton.classList.add("cancel-button")
+    cancelButton.classList.add("cancel-button");
     detailsContainer.appendChild(cancelButton);
   }
 };
@@ -554,7 +535,7 @@ const handleDeleteClick = (event) => {
     if (row) {
       const confirmed = confirm("Are you sure?");
       if (confirmed) {
-        row.remove(); // Usuń wiersz z tabeli
+        row.remove();
       }
     }
   }
@@ -563,4 +544,3 @@ const handleDeleteClick = (event) => {
 const renderList = (data) => {
   document.getElementById("details_container").innerHTML = "";
 };
-
