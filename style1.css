@@ -1,49 +1,154 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Rubik:wght@400;500;700&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Rubik:ital,wght@0,400;0,500;0,700;0,800;1,600&display=swap');
+:root {
+  --myButtonColor: linear-gradient(
+    to right,
+    rgba(0, 0, 255, 0.505),
+    rgba(255, 0, 0, 0.829)
+  );
+  --myButtonColorHover: linear-gradient(to right, rgb(60, 0, 255), red);
+}
+
+:root {
+  --myButtonColor: linear-gradient( to right, rgba(0, 0, 255, 0.505), rgb(233 27 27 / 83%) );
+  --myButtonColorHover: linear-gradient(to right, rgb(60, 0, 255), red);
+}
+
 body {
   margin: 0 auto;
 }
+.wrapper {
+  background-image: url("./photos/stars\ wars\ background2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* overflow: hidden; */
+}
+
 button {
   cursor: pointer;
 }
-.main-buttons {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100px;
-  background-image: url("photos/starWars\ background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 
-/* .buttons-container > button {
-  background: linear-gradient(to right, blue, red);
+.buttons-container > button {
+  font-size: 17px;
+  font-weight: 600;
   width: 200px;
   height: 50px;
-  color: white;
   margin: 5px 2px;
+  border-radius: 10px;
+  background-image: var(--myButtonColor);
+  transition: transform 0.1s;
 }
-.butons-container > button:hover {
-    background-color: #333;
-    color: #fff;
-} */
-.buttons-container > button {
-    /* background-color: linear-gradient(to right, blue, red); */
-    background-image:linear-gradient(to right, rgba(0, 0, 255, 0.505), rgba(255, 0, 0, 0.829));
- 
-    width: 200px;
-    height: 50px;
-    margin: 5px 2px;
-  }
-  
-  .buttons-container > button:hover {
-    /* background-color: #333; */
-    background: linear-gradient(to right, rgb(60, 0, 255), red);
-    color: #fff;
-  }
 
-.chart{
-    margin-top: 20px;
-    width: 100%;
+.buttons-container > button:hover {
+  background: var(--myButtonColorHover);
+  color: #fff;
+  transform: scale(1.03)
 }
-.chart > th{
-    background: aqua;
+.chart {
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgba(0, 51, 80, -0.2);
+  backdrop-filter: blur(10px);
+}
+#detailsPerson {
+  border-radius: 5px;
+  background: var(--myButtonColor);
+  height: 30px;
+  width: 64%;
+  font-weight: 600;
+  transition: transform 0.1s;
+}
+#detailsPerson:hover {
+  border-radius: 5px;
+  background: var(--myButtonColorHover);
+  color: #fff;
+  transform: scale(1.03)
+}
+
+#deletePerson {
+  border-radius: 5px;
+  background: var(--myButtonColor);
+  height: 30px;
+  width: 36%;
+  font-weight: 600;
+  transition: transform 0.1s;
+}
+#deletePerson:hover {
+  border-radius: 5px;
+  background: var(--myButtonColorHover);
+  height: 30px;
+  color: #fff;
+  transform: scale(1.03)
+}
+.current_page {
+  background-image: var(--myButtonColorHover);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 50px;
+}
+
+.pages > button:disabled {
+  opacity: 0.3;
+  cursor: auto;
+  width: 90px;
+  height: 40px;
+}
+
+.pages > button {
+  width: 125px;
+  height: 45px;
+  font-weight: 600;
+  border-radius: 5px;
+  background: var(--myButtonColor);
+  transition: transform 0.1s;
+}
+.pages > button:hover {
+  background: var(--myButtonColorHover);
+  color: #fff;
+  transform: scale(1.03)
+}
+.total_pages {
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 30px;
+  background-image: var(--myButtonColorHover);
+}
+
+.select > select{
+  border-radius: 5px;
+  width: 100px;
+  height: 30px;
+  background: var(--myButtonColor);
+}
+.select:hover{
+  border-radius: 5px;
+  background: var(--myButtonColorHover);
+  transform: scale(1.03);
+  color: #fff;
+}
+
+.details_container {
+  background-color: rgba(0, 51, 80, -0.2);
+  backdrop-filter: blur(10px);
+  max-height: 800px; /* Dostosuj maksymalną wysokość do potrzeb */
+}
+.cancel-button {
+  width: 90px;
+  height: 40px;
+  background: var(--myButtonColor);
+  color: #000000;
+  border-radius: 5px;
+  /* cursor: pointer; */
+}
+
+.cancel-button:hover {
+  background: var(--myButtonColorHover);
+  color: #fff;
+  font-weight: 600;
 }

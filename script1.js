@@ -147,11 +147,11 @@ class Person {
     <td>${this.gender}</td>
     <td>${this.height}</td>
     <td>${new Date(this.created).toLocaleDateString()}</td>
-    <td><button class="details person index${
+    <td><button id="detailsPerson" class="details person index${
       this.index
-    }">details</button><button class="delete person index${
+    }">details</button><button id="deletePerson" class="delete person index${
       this.index
-    }">delete</button></td>
+    }">delete X </button></td>
     </tr>`;
   }
 }
@@ -173,9 +173,9 @@ class Planets {
     <td>${this.terrain}</td>
     <td>${this.diameter}</td>
     <td>${new Date(this.created).toLocaleDateString()}</td>
-    <td><button class="details person index${
+    <td><button id="detailsPerson" class="details person index${
       this.index
-    }">details</button><button class="delete person index${
+    }">details</button><button id="deletePerson" class="delete person index${
       this.index
     }">delete</button></td>
     </tr>`;
@@ -228,9 +228,9 @@ class Species {
     <td>${this.skin_colors}</td>
     <td>${this.language}</td>
     <td>${new Date(this.created).toLocaleDateString()}</td>
-    <td><button class="details person index${
+    <td><button id="detailsPerson" class="details person index${
       this.index
-    }">details</button><button class="delete person index${
+    }">details</button><button id="deletePerson" class="delete person index${
       this.index
     }">delete</button></td>
     </tr>`;
@@ -254,9 +254,9 @@ class Vehicles {
     <td>${this.length}</td>
     <td>${this.crew}</td>
     <td>${new Date(this.created).toLocaleDateString()}</td>
-    <td><button class="details person index${
+    <td><button id="detailsPerson" class="details person index${
       this.index
-    }">details</button><button class="delete person index${
+    }">details</button><button id="deletePerson" class="delete person index${
       this.index
     }">delete</button></td>
     </tr>`;
@@ -283,9 +283,9 @@ class Starships {
     <td>${this.max_atmosphering_speed}</td>
     <td>${this.passengers}</td>
     <td>${new Date(this.created).toLocaleDateString()}</td>
-    <td><button class="details person index${
+    <td><button id="detailsPerson" class="details person index${
       this.index
-    }">details</button><button class="delete person index${
+    }">details</button><button id="deletePerson" class="delete person index${
       this.index
     }">delete</button></td>
     </tr>`;
@@ -441,14 +441,14 @@ const displayCurrentPage = async (page) => {
 
 const displayCurrentPageNumber = (page) => {
   const currentPageElement = document.getElementById("current_page");
-  currentPageElement.textContent = `Strona: ${page}`;
+  currentPageElement.textContent = `Page: ${page}`;
 };
 
 // Wyświetl całkowitą liczbę stron
 
 const displayTotalPages = (totalPages) => {
   const totalPagesElement = document.getElementById("total-pages");
-  totalPagesElement.textContent = `Liczba stron: ${totalPages}`;
+  totalPagesElement.textContent = `All pages: ${totalPages}`;
 };
 
 // Tworzenie elementu <select> i obsługa zmiany strony
@@ -539,7 +539,7 @@ const handleDetailsClick = async (event) => {
     cancelButton.addEventListener("click", () => {
       detailsContainer.innerHTML = "";
     });
-
+    cancelButton.classList.add("cancel-button")
     detailsContainer.appendChild(cancelButton);
   }
 };
