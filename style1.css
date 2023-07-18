@@ -9,10 +9,6 @@
   --myButtonColorHover: linear-gradient(to right, rgb(60, 0, 255), red);
 }
 
-:root {
-  --myButtonColor: linear-gradient( to right, rgba(0, 0, 255, 0.505), rgb(233 27 27 / 83%) );
-  --myButtonColorHover: linear-gradient(to right, rgb(60, 0, 255), red);
-}
 
 body {
   margin: 0 auto;
@@ -125,6 +121,7 @@ button {
   width: 100px;
   height: 30px;
   background: var(--myButtonColor);
+  font-weight: 600;
 }
 .select:hover{
   border-radius: 5px;
@@ -136,19 +133,28 @@ button {
 .details_container {
   background-color: rgba(0, 51, 80, -0.2);
   backdrop-filter: blur(10px);
-  max-height: 800px; /* Dostosuj maksymalną wysokość do potrzeb */
+  display: flex;
+}
+.details_container > table > tr :nth-child(1){
+  font-size: 20px;
+  font-weight: 600;
 }
 .cancel-button {
   width: 90px;
   height: 40px;
   background: var(--myButtonColor);
   color: #000000;
+  font-weight: 600;
   border-radius: 5px;
-  /* cursor: pointer; */
+  height: auto;
+  transition: transform 0.1s;
 }
 
 .cancel-button:hover {
   background: var(--myButtonColorHover);
   color: #fff;
-  font-weight: 600;
+  transform: scale(1.03)
 }
+
+
+
